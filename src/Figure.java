@@ -10,6 +10,4 @@ abstract class Figure {
     public abstract void Figure();
     public abstract void getSurface();
 
-
-
 }
