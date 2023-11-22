@@ -1,9 +1,9 @@
 public class Point {
     public int X;
     public int Y;
-    public Point(){
-        this.X = 0;
-        this.Y = 0;
+    public Point(int x,int y){
+        this.X = x;
+        this.Y = y;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Point {
     }
 
     public static void main (String[] args){
-        Point a = new Point();
+        Point a = new Point(0,0);
         String stringA = a.toString();
         System.out.println("coordonées de a :" +stringA);
         a.setX(2);
