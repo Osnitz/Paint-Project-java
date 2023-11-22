@@ -5,6 +5,7 @@ class Rectangle extends Figure {
         super(c, new Point(px, py));
         this.width = 0;
         this.length = 0;
+        setBoundingBox(0,0);
     }
     public int getLength(){
         return this.length;
@@ -34,5 +35,13 @@ class Rectangle extends Figure {
     @Override
     public String toString() {
         return "Rectangle{" + "color=" + c + ", origin=" + "(" + origin.X + ", " + origin.Y + ")" + ", width=" + width + ", length=" + length + '}';
+    }
+
+    public void setLength(int length){
+        this.length = length;
+    }
+
+    public void setWidth(int width){
+        this.width = width;
     }
 }
