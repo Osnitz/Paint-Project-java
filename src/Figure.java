@@ -30,5 +30,5 @@ abstract class Figure {
     public String toString() {
         return "Figure{" + "color=" + c + ", origin=" + "(" + origin.X + ", " + origin.Y + ")" + ", width=" + width + ", length=" + length + '}';
     }
-
+// test
 }

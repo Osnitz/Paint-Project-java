@@ -3,38 +3,6 @@ import java.awt.*;
 import java.awt.Point;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
-/*public class Drawing extends JPanel {
-    protected Color currentColor;
-    private Figure currentFigure;
-    private ArrayList <Figure> listFigures;
-    public String nameFigure;
-    int x;
-    int y;
-    public Drawing() {
-        this.setBackground(Color.white);
-        this.currentColor = Color.black;
-        this.currentFigure = new Rectangle(0, 0, currentColor);
-        this.listFigures = new ArrayList<>();
-// Add mouse click listener to create new figures
-        this.addMouseListener(this);
-    }
-    public void setCurrentColor(Color color) {
-        this.currentColor = color;
-    }
-    public Color getCurrentColor(){
-        return currentColor;
-    }
-
-    public void setCurrentFigure(Figure figure) {
-        this.currentFigure = figure;
-    }
-
-    public ArrayList<Figure> getFigures() {
-        return listFigures;
-    }
-}*/
-
 import java.awt.event.MouseEvent;
 import java.util.List;
 
@@ -42,6 +10,7 @@ public class Drawing extends JPanel implements MouseListener {
     private Color currentColor;
     private Figure currentFigure;
     private List<Figure> listFigures;
+    private int startX,startY,endX,endY;
 
     public Drawing() {
         this.setBackground(Color.white);
@@ -76,8 +45,19 @@ public class Drawing extends JPanel implements MouseListener {
         return currentColor;
     }
 
-    public void setCurrentFigure(Figure figure) {
-        this.currentFigure = figure;
+    public void setCurrentFigure(String figure) {
+        if (figure.equals("Rectangle")){
+            this.currentFigure = new Rectangle(0,0, currentColor);
+        }
+        if(figure.equals("Ellipse")){
+            this.currentFigure = new Ellipse(0,0, currentColor);
+        }
+        if(figure.equals("Square")){
+            this.currentFigure = new Square(0,0, currentColor);
+        }
+        if(figure.equals("Circle")){
+            this.currentFigure = new Circle(0,0, currentColor);
+        }
     }
 
     public List<Figure> getlistFigures() {
@@ -87,7 +67,6 @@ public class Drawing extends JPanel implements MouseListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         // Draw all figures in the list
         for (Figure figure : listFigures) {
             figure.draw(g);
@@ -102,6 +81,7 @@ public class Drawing extends JPanel implements MouseListener {
     // Other methods from the MouseListener interface
     @Override
     public void mousePressed(MouseEvent e) {
+
     }
 
     @Override

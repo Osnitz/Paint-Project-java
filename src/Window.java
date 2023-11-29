@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Window extends JFrame implements ActionListener {
     final Drawing drawingPanel;
@@ -18,19 +20,28 @@ public class Window extends JFrame implements ActionListener {
 
         // Create buttons
         JButton changeColorButton = new JButton("Change Color");
-        JButton changeShapeButton = new JButton("Change Shape");
+        JButton rectangleShapeButton = new JButton("Rectangle");
+        JButton squareShapeButton = new JButton("Square");
+        JButton ellipseShapeButton = new JButton("Ellipse");
+        JButton circleShapeButton = new JButton("Circle");
 
         // Add buttons to a panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(changeColorButton);
-        buttonPanel.add(changeShapeButton);
+        buttonPanel.add(rectangleShapeButton);
+        buttonPanel.add(squareShapeButton);
+        buttonPanel.add(ellipseShapeButton);
+        buttonPanel.add(circleShapeButton);
 
         // Add the button panel to the frame
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Register the Window class as an ActionListener for the buttons
         changeColorButton.addActionListener(this);
-        changeShapeButton.addActionListener(this);
+        rectangleShapeButton.addActionListener(this);
+        squareShapeButton.addActionListener(this);
+        circleShapeButton.addActionListener(this);
+        ellipseShapeButton.addActionListener(this);
 
         // Create a menu bar
         JMenuBar menuBar = new JMenuBar();
@@ -80,9 +91,17 @@ public class Window extends JFrame implements ActionListener {
                     repaint();
                 }
                 break;
-            case "Change Shape":
-                // Modify the current Drawing shape
-                // You can implement logic to switch between different shapes (Rectangle, Ellipse, etc.)
+            case "Rectangle":
+                drawingPanel.setCurrentFigure("Rectangle");
+                break;
+            case "Ellipse":
+                drawingPanel.setCurrentFigure("Ellipse");
+                break;
+            case "Square":
+                drawingPanel.setCurrentFigure("Square");
+                break;
+            case "Circle":
+                drawingPanel.setCurrentFigure("Circle");
                 break;
             case "Authors":
                 // Show information popup with author names
