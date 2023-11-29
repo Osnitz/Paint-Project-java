@@ -54,8 +54,11 @@ class Ellipse extends Figure {
     public void draw(Graphics g, int startX,int startY,int endX,int endY) {
         setSemiAxisX(Math.abs(endX - startX));
         setSemiAxisY(Math.abs(endY - startY));
+
+        // locate the left hand corner
         int x = Math.min(startX, endX);
         int y = Math.min(startY, endY);
+
         g.drawOval(x, y, semiAxisX, semiAxisY);
     }
 

@@ -23,8 +23,11 @@ class Rectangle extends Figure {
     public void draw(Graphics g, int startX,int startY,int endX,int endY) {
         setLength(Math.abs(endX - startX));
         setWidth(Math.abs(endY - startY));
+
+        // locate the left hand corner
         int x = Math.min(startX, endX);
         int y = Math.min(startY, endY);
+
         g.drawRect(x, y, length, width);
     }
 

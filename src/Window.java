@@ -9,11 +9,11 @@ public class Window extends JFrame implements ActionListener {
     public Window(String title,int x,int y) {
         setTitle(title);
         setSize(x,y);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Stop the program when we leave teh window
         setLayout(new BorderLayout());
         drawingPanel = new Drawing();
         add(drawingPanel, BorderLayout.CENTER);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // place the window at the center of the screen
         setVisible(true);
 
         // Create buttons
@@ -106,6 +106,8 @@ public class Window extends JFrame implements ActionListener {
                 // Show information popup with author names
                 JOptionPane.showMessageDialog(this, "Authors: Pillot Matthieu", "Paint project", JOptionPane.INFORMATION_MESSAGE);
                 break;
+            case "Quit":
+                this.dispose();
             default:
                 System.out.println("Button or menu item not handled: " + cmd);
         }

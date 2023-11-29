@@ -31,8 +31,11 @@ class Square extends Figure {
     @Override
     public void draw(Graphics g, int startX,int startY,int endX,int endY) {
         setSideLenght(Math.max(Math.abs(endX - startX),Math.abs(endY - startY)));
+
+        // locate the left hand corner
         int x = Math.min(startX, endX);
         int y = Math.min(startY, endY);
+
         g.drawRect(x, y, getSideLenght(), getSideLenght());
     }
 
