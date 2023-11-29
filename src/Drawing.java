@@ -52,7 +52,6 @@ public class Drawing extends JPanel implements MouseListener {
     public Color getCurrentColor(){
         return currentColor;
     }
-
     public void setCurrentFigure(String figure) {
         if (figure.equals("Rectangle")){
             this.currentFigure = new Rectangle(0,0, currentColor);
@@ -77,36 +76,23 @@ public class Drawing extends JPanel implements MouseListener {
         // Draw all of 4 figures wanted
         if (currentFigure instanceof Rectangle ) {
             g.setColor(currentColor);
-            ((Rectangle) currentFigure).setLength(Math.abs(endX - startX));
-            ((Rectangle) currentFigure).setWidth(Math.abs(endY - startY));
-            int x = Math.min(startX, endX);
-            int y = Math.min(startY, endY);
-            g.setColor(currentColor);
-            g.drawRect(x, y, currentFigure.length, currentFigure.width);
+            currentFigure.draw(g,startX,startY,endX,endY);
+
         }
+
         if (currentFigure instanceof Square){
             g.setColor(currentColor);
-            ((Square) currentFigure).setSideLenght(Math.max(Math.abs(endX - startX),Math.abs(endY - startY)));
-            int x = Math.min(startX, endX);
-            int y = Math.min(startY, endY);
-            g.setColor(currentColor);
-            g.drawRect(x, y, ((Square) currentFigure).getSideLenght(), ((Square) currentFigure).getSideLenght());
+            currentFigure.draw(g,startX,startY,endX,endY);
         }
+
         if (currentFigure instanceof Ellipse) {
             g.setColor(currentColor);
-            ((Ellipse) currentFigure).setSemiAxisX(Math.abs(endX - startX));
-            ((Ellipse) currentFigure).setSemiAxisY(Math.abs(endY - startY));
-            int x = Math.min(startX, endX);
-            int y = Math.min(startY, endY);
-            g.drawOval(x, y, ((Ellipse) currentFigure).semiAxisX, ((Ellipse) currentFigure).semiAxisY);
+            currentFigure.draw(g,startX,startY,endX,endY);
         }
 
         if(currentFigure instanceof Circle){
             g.setColor(currentColor);
-            ((Circle) currentFigure).setRadius(Math.max(Math.abs(endX - startX),Math.abs(endY - startY)));
-            int x = Math.min(startX, endX);
-            int y = Math.min(startY, endY);
-            g.drawOval(x, y, ((Circle) currentFigure).radius, ((Circle) currentFigure).radius);
+            currentFigure.draw(g,startX,startY,endX,endY);
         }
 
     }
@@ -116,7 +102,6 @@ public class Drawing extends JPanel implements MouseListener {
         createNewFigure(e.getPoint());
     }
 
-    // Other methods from the MouseListener interface
     @Override
     public void mousePressed(MouseEvent e) {
         startX = e.getX();
@@ -137,7 +122,5 @@ public class Drawing extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
-
 }
 

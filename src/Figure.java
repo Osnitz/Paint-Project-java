@@ -24,7 +24,7 @@ abstract class Figure {
 
     public abstract void setBoundingBox(int width, int length);
 
-    public abstract void draw(Graphics g);
+    public abstract void draw(Graphics g, int startX,int startY,int endX,int endY);
 
     @Override
     public String toString() {

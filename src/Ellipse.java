@@ -51,7 +51,12 @@ class Ellipse extends Figure {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int startX,int startY,int endX,int endY) {
+        setSemiAxisX(Math.abs(endX - startX));
+        setSemiAxisY(Math.abs(endY - startY));
+        int x = Math.min(startX, endX);
+        int y = Math.min(startY, endY);
+        g.drawOval(x, y, semiAxisX, semiAxisY);
     }
 
     @Override

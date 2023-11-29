@@ -41,7 +41,11 @@ class Circle extends Figure {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int startX,int startY,int endX,int endY) {
+        setRadius(Math.max(Math.abs(endX - startX),Math.abs(endY - startY)));
+        int x = Math.min(startX, endX);
+        int y = Math.min(startY, endY);
+        g.drawOval(x, y, radius, radius);
     }
 
     @Override
