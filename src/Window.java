@@ -76,6 +76,7 @@ public class Window extends JFrame implements ActionListener {
         openMenuItem.addActionListener(this);
         saveMenuItem.addActionListener(this);
         quitMenuItem.addActionListener(this);
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.awt.event.MouseEvent;
@@ -63,14 +64,43 @@ public class Drawing extends JPanel implements MouseListener {
     public List<Figure> getlistFigures() {
         return listFigures;
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Draw all figures in the list
-        for (Figure figure : listFigures) {
+
+        // Dessinez vos figures existantes
+        /*for (Figure figure : listFigures) {
             figure.draw(g);
+        }*/
+
+        // Dessinez le rectangle en cours si la souris est pressée et déplacée
+        if (currentFigure instanceof Rectangle ) {
+            g.setColor(currentColor);
+            int width = Math.abs(endX - startX);
+            int height = Math.abs(endY - startY);
+            int x = Math.min(startX, endX);
+            int y = Math.min(startY, endY);
+            g.setColor(currentColor);
+            g.drawRect(x, y, width, height);
         }
+        if (currentFigure instanceof Ellipse) {
+            g.setColor(currentColor);
+            int width = Math.abs(endX - startX);
+            int height = Math.abs(endY - startY);
+            int x = Math.min(startX, endX);
+            int y = Math.min(startY, endY);
+            g.drawOval(x, y, width, height);
+        }
+        if (currentFigure instanceof Square){
+            g.setColor(currentColor);
+            int width = Math.abs(endX - startX);
+            int height = width;
+            int x = Math.min(startX, endX);
+            int y = Math.min(startY, endY);
+            g.setColor(currentColor);
+            g.drawRect(x, y, width, height);
+        }
+
     }
 
     @Override
@@ -81,12 +111,22 @@ public class Drawing extends JPanel implements MouseListener {
     // Other methods from the MouseListener interface
     @Override
     public void mousePressed(MouseEvent e) {
-
+        startX = e.getX();
+        startY = e.getY();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        endX = e.getX();
+        endY = e.getY();
+        repaint();
     }
+    public void mouseDragged(MouseEvent e) {
+        endX = e.getX();
+        endY = e.getY();
+        repaint();
+    }
+
 
     @Override
     public void mouseEntered(MouseEvent e) {
@@ -95,5 +135,7 @@ public class Drawing extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
+
+
 }
 
