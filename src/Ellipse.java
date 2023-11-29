@@ -8,6 +8,8 @@ class Ellipse extends Figure {
         super(c, new Point(px, py));
         this.semiAxisX = 0;
         this.semiAxisY = 0;
+        this.width = 2*semiAxisY;
+        this.length = 2*semiAxisX;
     }
 
     public int getSemiAxisX() {

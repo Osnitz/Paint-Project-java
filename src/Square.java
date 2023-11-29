@@ -1,24 +1,60 @@
 import java.awt.*;
-
-public class Square extends Rectangle {
+class Square extends Figure {
+    private int sideLenght;
     public Square(int px, int py, Color c) {
-        super(px, py, c);
+        super(c, new Point(px, py));
+        this.width = 0;
+        this.length = 0;
+        this.sideLenght = 0;
+        setBoundingBox(0,0);
+    }
+    public int getLength(){
+        return this.length;
+    }
+    public int getWidth(){
+        return this.width;
     }
 
-    // Override setBoundingBox method to ensure equal width and length for a square
+    public int getSideLenght(){
+        return sideLenght;
+    }
     @Override
-    public void setBoundingBox(int sizeBB, int sizeBB2) {
-        super.setBoundingBox(sizeBB, sizeBB);
+    public void setBoundingBox(int width, int length) {
+        if(width != length){
+            System.out.println("Les 2 arguments doivent être les mêmes");
+            return;
+        }
+        this.width = width;
+        this.length = width;
     }
 
     @Override
-    public void setLength(int length) {
-        super.setLength(length);
+    public void draw(Graphics g) {
     }
 
     @Override
-    public void setWidth(int width) {
-        super.setWidth(width);
+    public int getSurface() {
+        return sideLenght^2;
+    }
+
+    @Override
+    public int getPerimeter() {
+        return 4*sideLenght;
+    }
+    @Override
+    public String toString() {
+        return "Rectangle{" + "color=" + c + ", origin=" + "(" + origin.X + ", " + origin.Y + ")" + ", width=" + width + ", length=" + length + '}';
+    }
+    public void setSideLenght(int s){
+        this.sideLenght = s;
+    }
+
+    public void setLength(int length){
+        this.length = length;
+    }
+
+    public void setWidth(int width){
+        this.width = width;
     }
 }
 
