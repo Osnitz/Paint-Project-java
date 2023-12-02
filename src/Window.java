@@ -3,10 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class Window extends JFrame implements ActionListener {
     final Drawing drawingPanel;
-
-
     public Window(String title,int x,int y) {
         setTitle(title);
         setSize(x,y);
@@ -63,6 +62,7 @@ public class Window extends JFrame implements ActionListener {
         JMenuItem saveMenuItem = new JMenuItem("Save");
         JMenuItem quitMenuItem = new JMenuItem("Quit");
 
+
         // Add the menu items to the menus
         aboutMenu.add(authorsMenuItem);
         fileMenu.add(newMenuItem);
@@ -115,12 +115,23 @@ public class Window extends JFrame implements ActionListener {
                 break;
             case "Quit":
                 this.dispose();
+                break;
             case "New":
                 drawingPanel.clearDrawingPanel();
+                break;
+            case "Save":
+                Drawing.save(drawingPanel.getListFigures());
+                break;
+            case "Open":
+                drawingPanel.clearDrawingPanel();
+                drawingPanel.loadedFigures = Drawing.load("SaveFig");
+                break;
             case "Clear":
                 drawingPanel.clearDrawingPanel();
+                break;
             default:
                 System.out.println("Button or menu item not handled: " + cmd);
+                break;
         }
     }
 
