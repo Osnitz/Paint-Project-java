@@ -94,7 +94,6 @@ public class Window extends JFrame implements ActionListener {
                 if (newColor != null) {
                     drawingPanel.setCurrentColor(newColor);
                     repaint();
-
                 }
                 break;
             case "Rectangle":

@@ -59,9 +59,9 @@ public class Drawing extends JPanel implements MouseListener {
             case Ellipse ellipse -> currentFigure = new Ellipse(startX, startY, currentColor);
             case Square square -> currentFigure = new Square(startX, startY, currentColor);
             case Circle circle -> currentFigure = new Circle(startX, startY, currentColor);
-            case null, default ->
+            case null, default -> currentFigure = new Rectangle(startX, startY, currentColor);
                 // Default to Rectangle if the type is unknown
-                    currentFigure = new Rectangle(startX, startY, currentColor);
+
         }
     }
 
@@ -95,9 +95,10 @@ public class Drawing extends JPanel implements MouseListener {
             g.setColor(figure.getColor());
             figure.draw(g, figure.getStartX(), figure.getStartY(), figure.getEndX(), figure.getEndY());
         }
-
-        // Draw all of 4 figures wanted
-
+        if (currentFigure != null){
+            g.setColor(currentColor);
+            currentFigure.draw(g,startX,startY,endX,endY);
+        }
     }
 
     public void clearDrawingPanel() {
