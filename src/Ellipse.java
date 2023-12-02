@@ -66,4 +66,8 @@ class Ellipse extends Figure {
     public String toString() {
         return "Ellipse{" + "color=" + c + ", origin=" + "(" + origin.X + ", " + origin.Y + ")" + ", semiAxisX=" + semiAxisX + ", semiAxisY=" + semiAxisY + '}';
     }
+
+    public void setCoordinates(int startX, int startY, int endX, int endY) {
+        super.setCoordinates(startX, startY, endX, endY);
+    }
 }

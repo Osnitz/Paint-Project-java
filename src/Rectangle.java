@@ -52,4 +52,8 @@ class Rectangle extends Figure {
     public void setWidth(int width){
         this.width = width;
     }
+
+    public void setCoordinates(int startX, int startY, int endX, int endY) {
+        super.setCoordinates(startX, startY, endX, endY);
+    }
 }

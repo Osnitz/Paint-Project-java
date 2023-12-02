@@ -54,4 +54,7 @@ class Circle extends Figure {
     public String toString() {
         return "Circle{" + "color=" + c + ", origin=" + "(" + origin.X + ", " + origin.Y + ")" + ", radius =" + radius + "}";
     }
+    public void setCoordinates(int startX, int startY, int endX, int endY) {
+        super.setCoordinates(startX, startY, endX, endY);
+    }
 }

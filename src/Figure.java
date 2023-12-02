@@ -6,6 +6,27 @@ abstract class Figure implements Serializable {
     protected Point origin;
     protected int width;
     protected int length;
+    private int startX;
+    private int startY;
+    private int endX;
+    private int endY;
+
+    public int getStartX() {
+        return startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public int getEndX() {
+        return endX;
+    }
+
+    public int getEndY() {
+        return endY;
+    }
+
 
     public abstract int getSurface();
 
@@ -20,10 +41,6 @@ abstract class Figure implements Serializable {
         return c;
     }
 
-    public Point getOrigin() {
-        return origin;
-    }
-
     public abstract void setBoundingBox(int width, int length);
 
     public abstract void draw(Graphics g, int startX,int startY,int endX,int endY);
@@ -32,5 +49,10 @@ abstract class Figure implements Serializable {
     public String toString() {
         return "Figure{" + "color=" + c + ", origin=" + "(" + origin.X + ", " + origin.Y + ")" + ", width=" + width + ", length=" + length + '}';
     }
-// test
+    public void setCoordinates(int startX, int startY, int endX, int endY) {
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
+    }
 }

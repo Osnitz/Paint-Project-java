@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class Window extends JFrame implements ActionListener {
     final Drawing drawingPanel;
 
+
     public Window(String title,int x,int y) {
         setTitle(title);
         setSize(x,y);
@@ -22,6 +23,9 @@ public class Window extends JFrame implements ActionListener {
         JButton squareShapeButton = new JButton("Square");
         JButton ellipseShapeButton = new JButton("Ellipse");
         JButton circleShapeButton = new JButton("Circle");
+        JButton clearPanelButton = new JButton("Clear");
+
+        clearPanelButton.setBackground(Color.red);
 
         // Add buttons to a panel
         JPanel buttonPanel = new JPanel();
@@ -30,6 +34,7 @@ public class Window extends JFrame implements ActionListener {
         buttonPanel.add(squareShapeButton);
         buttonPanel.add(ellipseShapeButton);
         buttonPanel.add(circleShapeButton);
+        buttonPanel.add(clearPanelButton);
 
         // Add the button panel to the frame
         add(buttonPanel, BorderLayout.SOUTH);
@@ -40,6 +45,7 @@ public class Window extends JFrame implements ActionListener {
         squareShapeButton.addActionListener(this);
         circleShapeButton.addActionListener(this);
         ellipseShapeButton.addActionListener(this);
+        clearPanelButton.addActionListener(this);
 
         // Create a menu bar
         JMenuBar menuBar = new JMenuBar();
@@ -88,6 +94,7 @@ public class Window extends JFrame implements ActionListener {
                 if (newColor != null) {
                     drawingPanel.setCurrentColor(newColor);
                     repaint();
+
                 }
                 break;
             case "Rectangle":
@@ -108,6 +115,10 @@ public class Window extends JFrame implements ActionListener {
                 break;
             case "Quit":
                 this.dispose();
+            case "New":
+                drawingPanel.clearDrawingPanel();
+            case "Clear":
+                drawingPanel.clearDrawingPanel();
             default:
                 System.out.println("Button or menu item not handled: " + cmd);
         }

@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
-@SuppressWarnings("FieldMayBeFinal")
+
 public class Drawing extends JPanel implements MouseListener {
     private Color currentColor;
     private Figure currentFigure;
-    private List<Figure> listFigures;
+    private final List<Figure> listFigures;
     private int startX,startY,endX,endY;
+    private Figure tempFig;
 
     public Drawing() {
         this.setBackground(Color.white);
@@ -24,25 +25,30 @@ public class Drawing extends JPanel implements MouseListener {
     }
 
     private void createNewFigure(Point clickPoint) {
-        Figure newFigure;
-        if (currentFigure instanceof Rectangle) {
-            newFigure = new Rectangle((int)clickPoint.getX(),(int) clickPoint.getY(), currentColor);
-        }
-        else if (currentFigure instanceof Ellipse) {
-            newFigure = new Ellipse((int)clickPoint.getX(), (int)clickPoint.getY(), currentColor);
-        }
-        else if (currentFigure instanceof Square){
-            newFigure = new Square((int)clickPoint.getX(), (int)clickPoint.getY(), currentColor);
-        } else if (currentFigure instanceof Circle) {
-            newFigure = new Circle((int)clickPoint.getX(), (int)clickPoint.getY(), currentColor);
 
-        } else {
-            // Default to Rectangle if the type is unknown
-            newFigure = new Rectangle((int)clickPoint.getX(), (int)clickPoint.getY(), currentColor);
+        //tempFig is used in order to dodge the problem of disappearing of th first figure drawn after  using the clearPanel function
+        if (tempFig != null){
+            currentFigure = tempFig;
+            tempFig =null;
+        }
+        // Maintain all the figures on the drawing panel while we draw a new one
+        // clickPoint is the end point of the figure
+        if (currentFigure != null) {
+            currentFigure.setCoordinates(startX, startY, clickPoint.x, clickPoint.y);
+            listFigures.add(currentFigure);
+            repaint();
         }
 
-        listFigures.add(newFigure);
-        repaint();
+        // Create a new figure of a chosen type
+        switch (currentFigure) {
+            case Rectangle rectangle -> currentFigure = new Rectangle(startX, startY, currentColor);
+            case Ellipse ellipse -> currentFigure = new Ellipse(startX, startY, currentColor);
+            case Square square -> currentFigure = new Square(startX, startY, currentColor);
+            case Circle circle -> currentFigure = new Circle(startX, startY, currentColor);
+            case null, default ->
+                // Default to Rectangle if the type is unknown
+                    currentFigure = new Rectangle(startX, startY, currentColor);
+        }
     }
 
     public void setCurrentColor(Color color) {
@@ -67,39 +73,31 @@ public class Drawing extends JPanel implements MouseListener {
         }
     }
 
-    private List<Figure> getlistFigures() {
-        return listFigures;
-    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        for (Figure figure : listFigures) {
+            g.setColor(figure.getColor());
+            figure.draw(g, figure.getStartX(), figure.getStartY(), figure.getEndX(), figure.getEndY());
+        }
+
         // Draw all of 4 figures wanted
-        if (currentFigure instanceof Rectangle ) {
-            g.setColor(currentColor);
-            currentFigure.draw(g,startX,startY,endX,endY);
-
-        }
-
-        if (currentFigure instanceof Square){
+        if (currentFigure != null) {
             g.setColor(currentColor);
             currentFigure.draw(g,startX,startY,endX,endY);
         }
+    }
 
-        if (currentFigure instanceof Ellipse) {
-            g.setColor(currentColor);
-            currentFigure.draw(g,startX,startY,endX,endY);
-        }
-
-        if(currentFigure instanceof Circle){
-            g.setColor(currentColor);
-            currentFigure.draw(g,startX,startY,endX,endY);
-        }
-
+    public void clearDrawingPanel() {
+        listFigures.clear();
+        tempFig = currentFigure;
+        currentFigure = null;
+        repaint();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        createNewFigure(e.getPoint());
     }
 
     @Override
@@ -112,6 +110,7 @@ public class Drawing extends JPanel implements MouseListener {
     public void mouseReleased(MouseEvent e) {
         endX = e.getX();
         endY = e.getY();
+        createNewFigure(e.getPoint());
         repaint();
     }
 
