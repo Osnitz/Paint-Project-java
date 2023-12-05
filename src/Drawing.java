@@ -33,7 +33,7 @@ public class Drawing extends JPanel implements MouseListener {
 
     private void createNewFigure(Point clickPoint) {
 
-        //tempFig is used in order to dodge the problem of disappearing of th first figure drawn after  using the clearPanel function
+        //tempFig is used in order to dodge the problem of disappearing of th first figure drawn after  using the clearPanel function or ctrl+z function
         if (tempFig != null){
             currentFigure = tempFig;
             tempFig =null;
@@ -41,6 +41,7 @@ public class Drawing extends JPanel implements MouseListener {
         // Maintain all the figures on the drawing panel while we draw a new one
         // clickPoint is the end point of the figure
         if (currentFigure != null) {
+            currentFigure.setColor(currentColor);
             currentFigure.setCoordinates(startX, startY, clickPoint.x, clickPoint.y);
             listFigures.add(currentFigure);
             repaint();
@@ -59,14 +60,15 @@ public class Drawing extends JPanel implements MouseListener {
             case Ellipse ellipse -> currentFigure = new Ellipse(startX, startY, currentColor);
             case Square square -> currentFigure = new Square(startX, startY, currentColor);
             case Circle circle -> currentFigure = new Circle(startX, startY, currentColor);
-            case null, default -> currentFigure = new Rectangle(startX, startY, currentColor);
+
                 // Default to Rectangle if the type is unknown
+            case null, default -> currentFigure = new Rectangle(startX, startY, currentColor);
 
         }
     }
 
     public void setCurrentColor(Color color) {
-        this.currentColor = color;
+        currentColor = color;
     }
 
     public Color getCurrentColor(){
@@ -95,6 +97,7 @@ public class Drawing extends JPanel implements MouseListener {
             g.setColor(figure.getColor());
             figure.draw(g, figure.getStartX(), figure.getStartY(), figure.getEndX(), figure.getEndY());
         }
+        // Drawn current figure
         if (currentFigure != null){
             g.setColor(currentColor);
             currentFigure.draw(g,startX,startY,endX,endY);
@@ -117,7 +120,7 @@ public class Drawing extends JPanel implements MouseListener {
                 oos.writeObject(f);
             }
             oos.close();
-            System.out.println("Figures Saved");
+            showMessageDialogSave();
             }
         catch (Exception e){
          System.out.println("Problemos !");
@@ -137,9 +140,30 @@ public class Drawing extends JPanel implements MouseListener {
             System.out.println("Figures Loaded");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Problemos !");
+            System.out.println("Problem !");
         }
         return loadedFigures;
+    }
+
+    // Dialog window when we save figures
+    private static void showMessageDialogSave() {
+        JOptionPane.showMessageDialog(
+                null,
+                "Figures successfully saved",
+                "Save",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+
+
+// Go back
+    public void ctrlZ() {
+        if (!listFigures.isEmpty()) {
+            tempFig = listFigures.get(listFigures.size() - 1); // avoid the disappearing of first figure drawn after   pushing ctrl + Z
+            listFigures.remove(listFigures.size() - 1);
+            currentFigure= null;
+            repaint();
+        }
     }
 
     @Override

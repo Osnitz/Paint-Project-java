@@ -22,7 +22,9 @@ public class Window extends JFrame implements ActionListener {
         JButton squareShapeButton = new JButton("Square");
         JButton ellipseShapeButton = new JButton("Ellipse");
         JButton circleShapeButton = new JButton("Circle");
+        JButton ctrlZButton = new JButton("Ctrl + Z");
         JButton clearPanelButton = new JButton("Clear");
+
 
         clearPanelButton.setBackground(Color.red);
 
@@ -33,7 +35,9 @@ public class Window extends JFrame implements ActionListener {
         buttonPanel.add(squareShapeButton);
         buttonPanel.add(ellipseShapeButton);
         buttonPanel.add(circleShapeButton);
+        buttonPanel.add(ctrlZButton);
         buttonPanel.add(clearPanelButton);
+
 
         // Add the button panel to the frame
         add(buttonPanel, BorderLayout.SOUTH);
@@ -45,6 +49,8 @@ public class Window extends JFrame implements ActionListener {
         circleShapeButton.addActionListener(this);
         ellipseShapeButton.addActionListener(this);
         clearPanelButton.addActionListener(this);
+        ctrlZButton.addActionListener(this);
+
 
         // Create a menu bar
         JMenuBar menuBar = new JMenuBar();
@@ -83,6 +89,7 @@ public class Window extends JFrame implements ActionListener {
 
     }
 
+// Action handler for each button
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
@@ -93,7 +100,6 @@ public class Window extends JFrame implements ActionListener {
                 Color newColor = JColorChooser.showDialog(this, "Choose a Color", drawingPanel.getCurrentColor());
                 if (newColor != null) {
                     drawingPanel.setCurrentColor(newColor);
-                    repaint();
                 }
                 break;
             case "Rectangle":
@@ -128,11 +134,16 @@ public class Window extends JFrame implements ActionListener {
             case "Clear":
                 drawingPanel.clearDrawingPanel();
                 break;
+            case "Ctrl + Z":
+                drawingPanel.ctrlZ();
+                repaint();
+                break;
             default:
                 System.out.println("Button or menu item not handled: " + cmd);
                 break;
         }
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

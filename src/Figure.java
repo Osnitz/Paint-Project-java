@@ -41,6 +41,10 @@ abstract class Figure implements Serializable {
         return c;
     }
 
+    public void setColor(Color newColor){
+        c = newColor;
+    }
+
     public abstract void setBoundingBox(int width, int length);
 
     public abstract void draw(Graphics g, int startX,int startY,int endX,int endY);
