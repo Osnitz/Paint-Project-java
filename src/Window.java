@@ -130,6 +130,7 @@ public class Window extends JFrame implements ActionListener {
             case "Open":
                 drawingPanel.clearDrawingPanel();
                 Drawing.load("SaveFig",drawingPanel.getListFigures());
+                drawingPanel.setCurrentFigure("Rectangle");
                 repaint();
                 break;
             case "Clear":

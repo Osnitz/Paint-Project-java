@@ -46,13 +46,7 @@ public class Drawing extends JPanel implements MouseListener {
             listFigures.add(currentFigure);
             repaint();
         }
-        // open the saved figures on request
-        if (loadedFigures != null) {
-            listFigures.clear();
-            listFigures.addAll(loadedFigures);
-            loadedFigures = null;
-            repaint();
-        }
+
 
         // Create a new figure of a chosen type
         switch (currentFigure) {
@@ -155,7 +149,7 @@ public class Drawing extends JPanel implements MouseListener {
 // Go back
     public void ctrlZ() {
         if (!listFigures.isEmpty()) {
-            tempFig = listFigures.get(listFigures.size() - 1); // avoid the disappearing of first figure drawn after   pushing ctrl + Z
+            tempFig = listFigures.get(listFigures.size() - 1); // avoid the disappearing of first figure drawn after pushing ctrl + Z
             listFigures.remove(listFigures.size() - 1);
             currentFigure= null;
             repaint();
