@@ -14,7 +14,7 @@ public class Drawing extends JPanel implements MouseListener {
     private List<Figure> listFigures;
     private int startX,startY,endX,endY;
     private Figure tempFig;
-    public List<Figure> loadedFigures;
+    private List<Figure> loadedFigures;
 
     public Drawing() {
         this.setBackground(Color.white);
@@ -123,26 +123,22 @@ public class Drawing extends JPanel implements MouseListener {
             showMessageDialogSave();
             }
         catch (Exception e){
-         System.out.println("Problemos !");
+         System.out.println("Problem !");
          }
          }
 
 
-    public static List<Figure> load(String file) {
-        List<Figure> loadedFigures = new ArrayList<>();
-
+    public static void load(String file,List<Figure> listFigures) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             int figureCount = ois.readInt();
             for (int i = 0; i < figureCount; i++) {
                 Figure loadedFigure = (Figure) ois.readObject();
-                loadedFigures.add(loadedFigure);
+                listFigures.add(loadedFigure);
             }
             System.out.println("Figures Loaded");
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Problem !");
         }
-        return loadedFigures;
     }
 
     // Dialog window when we save figures

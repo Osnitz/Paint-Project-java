@@ -129,7 +129,8 @@ public class Window extends JFrame implements ActionListener {
                 break;
             case "Open":
                 drawingPanel.clearDrawingPanel();
-                drawingPanel.loadedFigures = Drawing.load("SaveFig");
+                Drawing.load("SaveFig",drawingPanel.getListFigures());
+                repaint();
                 break;
             case "Clear":
                 drawingPanel.clearDrawingPanel();
